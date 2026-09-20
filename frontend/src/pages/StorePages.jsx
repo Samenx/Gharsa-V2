@@ -1,6 +1,6 @@
 import {tr} from "../i18n";
 import Bundle from "../components/Bundle";
-import {ProductExtras,DeliveryEstimate,StockInterest} from "../components/V2";
+import {ProductExtras,ProductCare,DeliveryEstimate,StockInterest} from "../components/V2";
 import { useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { useStore } from "../context/Store";
@@ -258,6 +258,7 @@ export function Product() {
               )}
           </div>
           <p>{p.short_description}</p>
+          <ProductCare product={p}/>
           {p.variations?.length>0&&<fieldset className="size-selector"><legend>{tr("Choose your size")}</legend>{p.variations.map(v=><button type="button" key={v.id} className={variation?.id===v.id?'active':''} onClick={()=>{setVariationId(v.id);setQuantity(1);setSelected(null)}}><strong>{v.name}</strong><small>{[v.height,v.pot_size].filter(Boolean).join(' · ')}</small><span>{money(v.sale_price??v.regular_price)}</span></button>)}</fieldset>}
           <p className="stock">
             {buying.stock_quantity > 0 && buying.stock_status === "in_stock"
@@ -292,7 +293,7 @@ export function Product() {
       </div>
       <section className="product-description">
         <h2>{tr("Description")}</h2>
-        <p>{p.description}</p>
+        {String(p.description || "").replace(/<\/?p[^>]*>/gi, "\n").replace(/<br\s*\/?\s*>/gi, "\n").replace(/<[^>]+>/g, "").replace(/&nbsp;/g, " ").split(/\n+/).map((paragraph, index) => paragraph.trim() && <p key={index}>{paragraph.trim()}</p>)}
       </section>
       {p.bundles?.map(b=><Bundle key={b.id} bundle={b} product={p} variation={variation}/>)}
       <ProductExtras product={p}/>

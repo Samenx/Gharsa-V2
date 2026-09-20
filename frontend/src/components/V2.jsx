@@ -8,6 +8,8 @@ import {
   Heart,
   Scale,
   MapPin,
+  Thermometer,
+  House,
   Truck,
   ShieldCheck,
 } from "lucide-react";
@@ -311,6 +313,58 @@ export function PolicyPage({ type }) {
     </div>
   );
 }
+const normalized = (attribute) => `${attribute.attribute_key || ""} ${attribute.name || ""}`.toLowerCase();
+const isInternalAttribute = (attribute) => /price\s*(note|basis|checked)|care\s*sources?|evidence\s*level|catalogue\s*note|admin\s*note/.test(normalized(attribute));
+const findAttribute = (attributes, pattern) => attributes.find((attribute) => pattern.test(normalized(attribute)));
+
+export function ProductCare({ product: p }) {
+  const { t } = useLanguage();
+  const attributes = (p.attributes || []).filter((attribute) => !isInternalAttribute(attribute));
+  const light = findAttribute(attributes, /light|sun|exposure/);
+  const watering = findAttribute(attributes, /water|moisture/);
+  const difficulty = findAttribute(attributes, /difficulty|care level/);
+  const temperature = findAttribute(attributes, /temperature|temp/);
+  const setting = findAttribute(attributes, /growing.?setting|setting|indoor|outdoor/);
+  const place = p.locations?.length
+    ? { value: p.locations.map((location) => location.name).join(" / ") }
+    : findAttribute(attributes, /best.?place|placement|location/);
+  const items = [
+    [place, MapPin, t("Best Place", "أفضل مكان")],
+    [light, Sun, t("Light", "الإضاءة")],
+    [watering, Droplets, t("Watering", "الري")],
+    [difficulty, Leaf, t("Care Level", "مستوى العناية")],
+    [temperature, Thermometer, t("Temperature", "الحرارة")],
+    [setting, House, t("Growing Setting", "بيئة النمو")],
+  ].filter(([attribute]) => attribute?.value);
+  if (!items.length) return null;
+  return <section className="quick-plant-care" aria-label={t("Quick Plant Care", "العناية السريعة بالنبات")}>
+    <h2>{t("Quick Plant Care", "العناية السريعة بالنبات")}</h2>
+    <div>{items.map(([attribute, Icon, label]) => <article key={label}>
+      <Icon size={19}/><div><h3>{label}</h3><p>{attribute.value}</p></div>
+    </article>)}</div>
+  </section>;
+}
+
+function PlantDetailGroups({ product: p, t }) {
+  const attributes = (p.attributes || []).filter((attribute) => !isInternalAttribute(attribute));
+  const usedInQuickCare = /light|sun|exposure|water|moisture|difficulty|care level|temperature|temp|growing.?setting|setting|indoor|outdoor|best.?place|placement|location/;
+  const groups = [
+    [t("Care Details", "تفاصيل العناية"), /soil|drainage|humidity|drought|seasonal/, attributes.filter((a) => /soil|drainage|humidity|drought|seasonal/.test(normalized(a)))],
+    [t("Plant Information", "معلومات النبات"), /scientific|propagation|flowering|fruiting/, attributes.filter((a) => /scientific|propagation|flowering|fruiting/.test(normalized(a)))],
+    [t("Health & Safety", "الصحة والسلامة"), /safety|toxic|pet|pest|disease/, attributes.filter((a) => /safety|toxic|pet|pest|disease/.test(normalized(a)))],
+    [t("What You Receive", "ما الذي ستحصل عليه"), /what.*receive|included|receive/, attributes.filter((a) => /what.*receive|included|receive/.test(normalized(a)))],
+  ];
+  const assigned = groups.flatMap(([, , items]) => items);
+  const other = attributes.filter((a) => !assigned.includes(a) && !usedInQuickCare.test(normalized(a)));
+  if (other.length) groups[0][2].push(...other);
+  return <div className="plant-detail-accordion">
+    {groups.filter(([, , items]) => items.length).map(([title, , items], index) => <details key={title} open={index === 0}>
+      <summary>{title}<span aria-hidden="true">+</span></summary>
+      <dl>{items.map((attribute, itemIndex) => <div key={attribute.id || itemIndex}><dt>{attribute.name}</dt><dd>{attribute.value}</dd></div>)}</dl>
+    </details>)}
+  </div>;
+}
+
 export function ProductExtras({ product: p }) {
   const { t, language } = useLanguage();
   const { data: site } = useData("/v2/site");
@@ -338,69 +392,9 @@ export function ProductExtras({ product: p }) {
   return (
     <>
       {p.attributes?.length > 0 && (
-        <section className="section">
-          <span className="eyebrow">GET TO KNOW YOUR PLANT</span>
-          <h2>
-            {t(
-              "The details that make it yours.",
-              "تفاصيل تساعدك على الاختيار.",
-            )}
-          </h2>
-          <div className="spec-grid">
-            {p.attributes.map((a, i) => {
-              const Icon = /water|moisture/i.test(a.name)
-                ? Droplets
-                : /light|sun|exposure/i.test(a.name)
-                  ? Sun
-                  : Leaf;
-              return (
-                <article key={a.id || i}>
-                  <Icon size={27} />
-                  <div>
-                    <h3>{a.name}</h3>
-                    <p>{a.value}</p>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        </section>
-      )}
-      {p.locations?.length > 0 && (
-        <section className="placement">
-          <h2>{t("At home in your space", "نبات يناسب مساحتك")}</h2>
-          <div>
-            {p.locations.map((l) => (
-              <Link key={l.id} to={"/shop?location=" + l.slug}>
-                <MapPin size={17} />
-                {l.name}
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
-      {Object.keys(p.story || {}).length > 0 && (
-        <section className="plant-story">
-          <img
-            src={p.images?.[1]?.path || p.main_image}
-            loading="lazy"
-            alt={p.name}
-          />
-          <div>
-            <span className="eyebrow">ROOTED IN EVERYDAY LIFE</span>
-            <h2>
-              {t("Everything about ", "كل ما يخص ")}
-              {p.name}
-            </h2>
-            {Object.entries(
-              language === "ar" ? { "نبذة عن النبات": p.description } : p.story,
-            ).map(([key, value]) => (
-              <div key={key}>
-                <h3>{key.replaceAll("_", " ")}</h3>
-                <p>{value}</p>
-              </div>
-            ))}
-          </div>
+        <section className="plant-details section">
+          <h2>{t("More About This Plant", "المزيد عن هذا النبات")}</h2>
+          <PlantDetailGroups product={p} t={t}/>
         </section>
       )}
       {p.calendar?.length > 0 && (

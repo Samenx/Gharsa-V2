@@ -37,6 +37,14 @@ npm run dev --workspace frontend
 
 The seed creates the first Super Admin using `SUPER_ADMIN_EMAIL`, `SUPER_ADMIN_PASSWORD`, and `SUPER_ADMIN_NAME`. Sign in through `/login`. Passwords are hashed with bcrypt. The seed will not reset an existing primary administrator's password or overwrite existing store content.
 
+To import the complete 100-plant spreadsheet and its care profiles, run:
+
+```bash
+npm run import:plants --workspace backend -- /path/to/GHARSA_Complete_Plant_Database_100_No_Blanks.xlsx
+```
+
+The importer updates matching product names, adds missing plants, preserves existing product images, and stores the full care, safety, placement, price, and source details as structured product fields.
+
 **This workspace is already configured:** the development admin email is `admin@gharsa.local`. Its randomly generated password is in the ignored, owner-readable `backend/.env` file under `SUPER_ADMIN_PASSWORD`. No password is committed to source code.
 
 ## PostgreSQL and pgAdmin 4
