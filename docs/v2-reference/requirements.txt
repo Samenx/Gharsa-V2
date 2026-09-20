@@ -1,0 +1,278 @@
+                                                GHARSA V2
+                           Complete implementation script with the ORIGINAL competitor-analysis images
+
+
+
+
+ The original screenshots and visual references from your uploaded V2 - edits PDF are included below exactly
+ as rendered from that PDF. The implementation script then converts every listed improvement into
+ development requirements.
+
+
+
+
+GHARSA V2 - implementation script with original images                                                   Page 1
+ Original V2 - edits - Page 1
+
+
+
+
+GHARSA V2 - implementation script with original images   Page 2
+ Original V2 - edits - Page 2
+
+
+
+
+GHARSA V2 - implementation script with original images   Page 3
+ Original V2 - edits - Page 3
+
+
+
+
+GHARSA V2 - implementation script with original images   Page 4
+ Original V2 - edits - Page 4
+
+
+
+
+GHARSA V2 - implementation script with original images   Page 5
+ Original V2 - edits - Page 5
+
+
+
+
+GHARSA V2 - implementation script with original images   Page 6
+ MASTER BUILD INSTRUCTION
+   You are a senior full-stack software engineer. Build GHARSA V2 as a complete production-style e-commerce
+   application.
+
+   REFERENCE WEBSITE:
+   https://dev-greenwow.pantheonsite.io/
+
+   Rebuild the existing GHARSA customer-facing application closely and preserve its visual identity, pages,
+   catalogue, cart, checkout, account functions and JOD pricing.
+
+   STACK:
+   React + Vite + React Router
+   Node.js + Express REST API
+   PostgreSQL + pgAdmin 4
+   JWT + bcrypt
+   Role-based access control
+   Custom admin CMS
+
+   Do not use WordPress or WooCommerce. Do not embed the old site. Do not use fake CRUD or hardcoded arrays
+   as the final data source. Everything important must persist in PostgreSQL.
+
+
+ ADMIN CONTROL
+   Create /admin. The Super Admin must be able to edit essentially the entire application.
+
+   Modules:
+   Dashboard, Products, Categories, Inventory, Orders, Customers, Users, Roles & Permissions, Pages, Page Builder,
+   Sections, Navigation, Homepage, FAQs, Testimonials, Reviews, Coupons, Discounts, Bundles, Media, Contact
+   Messages, Newsletter, Delivery Rules, Return Policy, Plant Calendar, Guarantee Claims, Site Settings, SEO and
+   Audit Logs.
+
+   Implement real RBAC and enforce permissions in the backend, not only by hiding UI buttons.
+
+
+ ARABIC LANGUAGE
+   Add complete English/Arabic support with a language switcher. Arabic must use RTL layout correctly. Products,
+   categories, menus, pages, FAQs, checkout, account screens, SEO metadata and admin-editable content must
+   support both languages. Store the selected language. Build the translation structure so additional languages can
+   be added later.
+
+
+ GENERAL FAQ PAGE
+   Create /faq with searchable/expandable questions grouped into Ordering, Payment, Delivery, Returns, Plant
+   Care, Accounts, Discounts and Guarantee. Admin can create, edit, delete, reorder, translate and enable/disable
+   questions.
+
+
+ ANNOUNCEMENT BAR
+   Add the thin information strip above the header shown in the competitor idea. Admin can edit EN/AR text,
+   optional link, destination, schedule, active state and display behavior. Example: Free delivery on orders over 50
+   JOD.
+
+
+ SHOP FILTERS
+   Add backend-powered filtering by price range, category, subcategory, stock, sale, plant size, light requirement,
+   watering level, difficulty and suitable location. Add sorting by popularity, newest, price and rating. Keep
+   pagination.
+
+
+ PERFORMANCE
+
+
+GHARSA V2 - implementation script with original images                                                            Page 7
+   Improve page speed using optimized responsive images, WebP/AVIF where practical, lazy loading, backend
+   pagination, PostgreSQL indexes, efficient queries, code splitting, compression, caching where appropriate and
+   loading skeletons.
+
+
+ DELIVERY ESTIMATE
+   Show an estimated delivery range on product page, cart and checkout. Calculate it from configurable processing
+   days, delivery days, customer city/region, weekends and optional cutoff time. Admin manages delivery rules. Do
+   not hardcode dates.
+
+
+ RETURN POLICY
+   Create a public Return/Refund Policy page and link it from product pages, checkout and footer. Add customer
+   return-request records and an admin workflow with reason, item, notes, status and response. Eligibility must
+   follow configurable store policy.
+
+
+ PRODUCT DETAILS & SPECIFICATIONS
+   Redesign product information into an attractive visual specification area inspired by the ORIGINAL screenshots
+   included earlier.
+
+   Support flexible attributes such as plant height, pot size, available sizes, flower colour, foliage, exposure/light,
+   hardiness, soil moisture, soil type, soil pH, watering, difficulty, pet safety, botanical name, flowering period and
+   climate zone.
+
+   Use icons/cards and grouped information instead of one large paragraph. Admin edits all values per product.
+
+
+ WISHLIST IN HEADER
+   Add a heart icon and wishlist count in the main header beside account/cart. Guests can save locally and merge
+   after login. Logged-in wishlist persists in PostgreSQL.
+
+
+ GOOGLE LOGIN
+   Keep normal email/password authentication and add Continue with Google using a secure OAuth flow. Prevent
+   duplicate accounts for the same verified email. Google login must never assign elevated roles. Admin can
+   enable/disable it.
+
+
+ BETTER HERO SLIDER
+   Create a polished responsive hero slider with strong plant imagery, headline, supporting text, CTA, optional
+   secondary CTA, accessible controls and mobile-specific images. Admin can create, delete, reorder and edit slides.
+   Avoid baking text into images.
+
+
+ NEWSLETTER + WELCOME DISCOUNT
+   Add newsletter signup on homepage and footer. Store email, optional name, language, consent timestamp and
+   status. Admin can search, export and unsubscribe users. Add a configurable first-time welcome discount while
+   preventing repeated abuse by the same email.
+
+
+ BETTER PRODUCT DESCRIPTION
+   Use a warm customer-facing product description structure:
+   1. Short introduction
+   2. Why you'll love it
+   3. Best places for it
+   4. Care requirements
+   5. Specifications
+   6. Planting/growing information
+   7. Delivery/guarantee
+   8. FAQ
+
+
+
+
+GHARSA V2 - implementation script with original images                                                                Page 8
+   Use imagery, whitespace, icons and typography similar in quality to the ORIGINAL aesthetic-description
+   screenshot.
+
+
+ WHERE TO PLACE / PLANT
+   Each product can have suitable locations such as Office, Desk, Reception, Living Room, Bedroom, Balcony,
+   Courtyard, Garden, Containers, Walls/Fences, Shade and Sunny Area. Show these visually and allow filtering by
+   them. Store relationships in PostgreSQL.
+
+
+ LOCATION-AWARE PLANTING CALENDAR
+   Create the JAN-DEC planting calendar inspired by the ORIGINAL calendar screenshot. Support planting, flowering,
+   pruning and repotting periods.
+
+   Improve the competitor concept by making recommendations region-aware. Create climate/region profiles and
+   product calendar rules. A user can select a city/region, or grant location permission, and the displayed calendar
+   uses the applicable regional profile. Label recommendations as guidance rather than certainty. Admin edits all
+   calendar rules.
+
+
+ BETTER FOOTER
+   Build a complete footer inspired by the ORIGINAL footer screenshot. Include GHARSA/About, categories,
+   customer service, account, FAQ, shipping, returns, guarantee, contact, social media, newsletter, policies and
+   applicable payment icons. Admin controls columns, links, order and visibility.
+
+
+ PRODUCT BUNDLES
+   Add Complete Your Set product bundles inspired by the ORIGINAL combo screenshot. Allow optional add-ons with
+   checkboxes and show bundle savings and total. Admin selects base product, add-ons, quantities, discount,
+   schedule and active state. Validate all prices on the backend.
+
+
+ 3-MONTH PLANT CARE GUARANTEE
+   Add an optional configurable plant-care guarantee. Admin sets duration, eligible products/categories, conditions,
+   exclusions, evidence required and resolution type. Eligible product pages show the guarantee. Customers can
+   submit claims with order item, problem description and photos. Admin can approve, reject, request information
+   and record resolution.
+
+
+ PLANT SIZE VARIATIONS
+   Allow Small, Medium, Large or custom plant variations. Each variation can have SKU, price, sale price, stock,
+   image, height, pot size and active state. Product price/image/availability update after selection. Cart/order
+   preserve the variation. Inventory is tracked per variation.
+
+
+ PRODUCT-SPECIFIC FAQ
+   Every product can have its own FAQ accordion. Admin product editor must support Add Question, EN/AR
+   question, EN/AR answer, order and active state. Do not use identical answers for every plant.
+
+
+ OFFICE PLANTS
+   Add Office Plants with useful subcategories such as Desk Plants, Low-Light Office Plants, Low-Maintenance Office
+   Plants, Reception Plants and Large Office Plants. Also support Office as a suitable-location attribute so plants
+   remain discoverable in their normal categories.
+
+
+ COMPARE PLANTS
+   Allow customers to compare up to three plants side-by-side by image, price, size, light, watering, difficulty, pet
+   safety, indoor/outdoor, office suitability, height, soil, rating and availability. Use existing product attributes as the
+   source.
+
+
+
+
+GHARSA V2 - implementation script with original images                                                                   Page 9
+ BACK-IN-STOCK NOTIFICATIONS
+   For unavailable products/variations, provide Notify Me. Store subscriptions in PostgreSQL. Trigger the notification
+   workflow when stock becomes available. Admin can view subscriptions and notification state. Prevent duplicate
+   subscriptions.
+
+
+ HEADER REDESIGN
+   Improve the header while keeping GHARSA branding. Desktop: announcement bar, logo, navigation, categories,
+   search, language, wishlist, account and cart. Mobile: compact logo, hamburger, search, wishlist/account/cart and
+   nested categories. Keep it clean and responsive.
+
+
+ DATABASE EXTENSIONS
+   Create proper relational tables for users/roles/permissions, products, variations, categories, inventory, carts,
+   orders, reviews, coupons, pages, sections, menus, media, FAQs, product FAQs, delivery rules, returns, product
+   attributes, suitable locations, calendar rules, climate profiles, newsletter subscribers, bundles, guarantee
+   policies/claims, stock notifications, announcement bars, footer content, settings and audit logs. Use foreign keys,
+   indexes, constraints and timestamps.
+
+
+ TESTING
+   Test English/Arabic and RTL, FAQ management, announcement scheduling, filters, delivery calculations, return
+   requests, product specifications, wishlist, Google login, slider responsiveness, newsletter/welcome discount,
+   suitable-place filters, regional calendar, footer CMS, bundle pricing, guarantee claims, variation stock, product
+   FAQ, Office category, compare, stock alerts, permissions and all mobile layouts. Also test API validation,
+   persistence, security, performance and console/API errors.
+
+
+ FINAL ACCEPTANCE
+   Do not stop at scaffolding. The application is complete only when the existing GHARSA ecommerce functions
+   work, all V2 improvements above are implemented, all dynamic data persists in PostgreSQL, Super Admin can
+   manage the system, permissions are enforced server-side, stock is reliable, Arabic/RTL works, layouts are
+   responsive, no fake buttons remain, important flows are tested and the README contains complete
+   setup/migration/seed/run instructions.
+
+
+
+
+GHARSA V2 - implementation script with original images                                                            Page 10
+

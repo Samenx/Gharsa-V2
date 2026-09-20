@@ -1,0 +1,8 @@
+import {useState} from 'react';
+import {api,money} from '../api/client';
+import {useStore} from '../context/Store';
+import {useLanguage} from '../context/Language';
+export default function Bundle({bundle:b,product,variation}) {
+ const {items,saveCart,notify}=useStore();const {t}=useLanguage();const [selected,setSelected]=useState(()=>b.items.filter(i=>!i.optional).map(i=>i.id)),[busy,setBusy]=useState(false);
+ return <section className="bundle-panel"><span className="bundle-badge">−{Number(b.discount_percent)}%</span><h2>{t('Complete your set','أكمل مجموعتك')}</h2><p>{b.name}</p>{b.items.map(i=><label key={i.id}><input type="checkbox" checked={selected.includes(i.id)} disabled={!i.optional} onChange={e=>setSelected(s=>e.target.checked?[...s,i.id]:s.filter(x=>x!==i.id))}/><img loading="lazy" src={i.main_image} alt={i.name}/><span>{i.quantity} × {i.name}</span><strong>{money((i.sale_price??i.regular_price)*i.quantity)}</strong></label>)}<button className="button" disabled={busy||!selected.length} onClick={async()=>{setBusy(true);try{const additions=[{product_id:product.id,variation_id:variation?.id||null,bundle_id:b.id,quantity:1},...b.items.filter(i=>selected.includes(i.id)).map(i=>({product_id:i.product_id,variation_id:i.variation_id,bundle_id:b.id,quantity:i.quantity}))];const next=[...items.filter(i=>i.bundle_id!==b.id),...additions];await api('/cart/quote',{method:'POST',body:{items:next}});saveCart(next);notify(t('Your set was added to the cart.','تمت إضافة المجموعة إلى السلة.'));}catch(e){notify(e.message)}finally{setBusy(false)}}}>{t('Add selected set','أضف المجموعة المحددة')}</button><small>{t('Bundle discounts cannot be combined with coupons.','لا يمكن الجمع بين خصم المجموعة ورمز خصم آخر.')}</small></section>;
+}
